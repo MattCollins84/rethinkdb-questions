@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Realtime apps with RethinkDB and Node.js</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+    <link href="/css/epoch.min.css" rel="stylesheet">
+
+    <script src="/js/jquery-2.2.4.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/d3.min.js"></script>
+    <script src="/js/epoch.min.js"></script>
+    <script src="/js/general.js"></script>
+    <script src="/js/questions.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+      // global questions array
+      var questions = [];
+      
+      // connect to Socket.IO
+      const socket = io();
+
+      // on new questions
+      socket.on("new", q => {
+        questions.push(q);
+        renderQuestions();
+      })
+
+      // on updated questions
+      socket.on("updated", q => {
+        updateQuestion(q)
+        renderQuestions();
+      })
+
+      // on deleted questions
+      socket.on("deleted", q => {
+        deleteQuestion(q)
+        renderQuestions();
+      });
+
+      // when page is ready
+      $(document).ready(function() {
+
+        // Get the Public IP and display it
+        getIP(ip => {
+          $("span#ip").text(`(http://${ip}:3000)`);
+        })
+
+        // GET questions from DB and then render the questions
+        getQuestions(renderQuestions);
+
+        // Make ask button show/hide the form
+        $('#ask').click(e => {
+          $("form#questionForm").toggleClass("hidden");
+          $("form#questionForm input").focus();
+        })
+
+        // handle form submit
+        $("form#questionForm").submit(askQuestion)
+
+      });
+      
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">Questions <span id="ip"></span><button id="ask" type="button" class="pull-right btn btn-info">Ask a question</button></h3>
+        <hr>
+        <form class="hidden" id="questionForm">
+          <div class="form-group">
+            <input type="text" name="question" id="question" class="form-control input-lg" placeholder="What is your question?">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+          <hr>
+        </form>
+
+      </div>
+
+      <div class="row" id='questions'>
+
+
+
+      </div>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
