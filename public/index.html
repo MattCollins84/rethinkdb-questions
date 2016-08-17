@@ -9,65 +9,72 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Realtime apps with RethinkDB and Node.js</title>
+    <title>Realtime Q&amp;A</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
     <link href="/css/epoch.min.css" rel="stylesheet">
 
+    <script src="/js/vue.js"></script>
     <script src="/js/jquery-2.2.4.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/d3.min.js"></script>
-    <script src="/js/epoch.min.js"></script>
     <script src="/js/general.js"></script>
     <script src="/js/questions.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/vue-socketio.min.js"></script>
     <script>
 
-      // global questions array
-      var questions = [];
-      
-      // connect to Socket.IO
-      const socket = io();
-
-      // on new questions
-      socket.on("new", q => {
-        questions.push(q);
-        renderQuestions();
-      })
-
-      // on updated questions
-      socket.on("updated", q => {
-        updateQuestion(q)
-        renderQuestions();
-      })
-
-      // on deleted questions
-      socket.on("deleted", q => {
-        deleteQuestion(q)
-        renderQuestions();
-      });
+      // Tell Vue to use Socket.io
+      var socketUrl = `${location.protocol}//${location.hostname}${(location.port ? ':'+location.port: '')}`;
+      Vue.use(VueSocketio, socketUrl);
 
       // when page is ready
+      var app;
       $(document).ready(function() {
 
-        // Get the Public IP and display it
-        getIP(ip => {
+        app = new Vue({
+          el: '#app',
+          data: {
+            questions: []
+          },
+          methods: {
+            getQuestions: getQuestions,
+            upvote: doUpvote,
+            downvote: doDownvote,
+            answerQuestion: answerQuestion,
+            showForm: showForm,
+            askQuestion: askQuestion,
+            getIP: getIP
+          },
+          computed: {
+            sortedQuestions: function() {
+              let q = this.questions
+              return q.sort((a, b) => {
+                return b.score - a.score;
+              });
+            },
+            answerPage: () => location.pathname == "/answer"
+          },
+          sockets:{
+            new: function(q) {
+              this.questions.push(q);
+              this.questions.sort((a, b) => {
+                return b.score - a.score;
+              })
+            },
+            updated: updateQuestion,
+            deleted: deleteQuestion
+          }
+        })
+
+        app.getQuestions(questions => {
+          app.questions = questions;
+        })
+
+        app.getIP(ip => {
           $("span#ip").text(`(http://${ip}:3000)`);
         })
-
-        // GET questions from DB and then render the questions
-        getQuestions(renderQuestions);
-
-        // Make ask button show/hide the form
-        $('#ask').click(e => {
-          $("form#questionForm").toggleClass("hidden");
-          $("form#questionForm input").focus();
-        })
-
-        // handle form submit
-        $("form#questionForm").submit(askQuestion)
 
       });
       
@@ -77,11 +84,11 @@
 
   <body>
 
-    <div class="container">
+    <div class="container" id="app">
       <div class="header">
-        <h3 class="text-muted">Questions <span id="ip"></span><button id="ask" type="button" class="pull-right btn btn-info">Ask a question</button></h3>
+        <h3 class="text-muted">Questions <span id="ip"></span><button v-on:click="showForm" id="ask" type="button" class="pull-right btn btn-info">Ask a question</button></h3>
         <hr>
-        <form class="hidden" id="questionForm">
+        <form class="hidden" id="questionForm" v-on:submit="askQuestion">
           <div class="form-group">
             <input type="text" name="question" id="question" class="form-control input-lg" placeholder="What is your question?">
           </div>
@@ -93,7 +100,25 @@
 
       <div class="row" id='questions'>
 
+        <div v-for="question in sortedQuestions" id="{{ question.id }}" class="col-lg-12">
+          <button type="button" v-on:click="upvote(question.id)" class="mr10 btn btn-success btn-xs glyphicon glyphicon-chevron-up" href="#"></button>
+          <span class="mr10 label label-info">{{ question.score }}</span>
+          <button type="button" v-on:click="downvote(question.id)" class="mr10 btn btn-danger btn-xs glyphicon glyphicon-chevron-down" href="#"></button>
+          <span class="mr10 label label-{{ question.answer ? 'success' : 'warning' }}">{{ question.answer ? "ANSWERED" : "NOT ANSWERED" }}</span>
 
+          <h4>{{ question.question }}</h4>
+          
+          <template v-if="!question.answer && answerPage">
+            <textarea answer-id="{{ question.id }}" class="form-control" rows="3"></textarea>
+            <button type="button" class="btn btn-success mt10" v-on:click="answerQuestion(question.id)">Answer</button>
+          </template>
+
+          <template v-if="question.answer">
+            <p>{{ question.answer }}</p>
+          </template>
+
+          <hr>
+        </div>
 
       </div>
 

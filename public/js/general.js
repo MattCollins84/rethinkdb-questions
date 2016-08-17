@@ -4,6 +4,8 @@
 // - Optional callback
 const getQuestions = function(callback) {
   
+  var questions = [];
+
   $.ajax("/questions")
   .complete(function(data) {
     
@@ -12,9 +14,12 @@ const getQuestions = function(callback) {
       questions.push(q);
     });
 
-    if (typeof callback == "function") {
-      callback();
-    }
+    // sort questions by score
+    questions.sort((a, b) => {
+      return b.score - a.score;
+    })
+
+    return callback(questions)
 
   });
 
@@ -26,18 +31,26 @@ const getQuestions = function(callback) {
 const updateQuestion = function(q) {
 
   // find the index of the question in our array
-  let index = questions.findIndex((el, i, arr) => { 
+  let index = app.questions.findIndex((el, i, arr) => { 
     return el.id == q.id 
   });
 
   // if this element isn't found - add it!
   if (index === -1) {
-    questions.push(q);
+    app.questions.push(q);
   }
 
   // otherwise, update the array
   else {
-    questions[index] = q
+    
+    if (app.questions[index].score != q.score) {
+      app.questions[index].score = q.score
+    }
+
+    if (app.questions[index].answer != q.answer) {
+      app.questions[index].answer = q.answer
+    }
+
   }
 
 }
@@ -49,13 +62,13 @@ const updateQuestion = function(q) {
 const deleteQuestion = function(q) {
 
   // find the index of the question in our array
-  let index = questions.findIndex((el, i, arr) => { 
+  let index = app.questions.findIndex((el, i, arr) => { 
     return el.id == q.id 
   });
 
   // if this element is found - delete it!
   if (index !== -1) {
-    questions.splice(index, 1)
+    app.questions.splice(index, 1)
   }
 
 }

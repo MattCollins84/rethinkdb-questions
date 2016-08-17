@@ -35,6 +35,6 @@ The app itself is designed to be used with an audience, and is very simple.
 
 Ask a question via the button in the top right. Each question can be up or down voted and the questions will re-order themselves based on their current score.
 
-If you are accessing this app via `http://localhost:3000` you will also be able to answer questions - if you are coming via any other host (e.g. 127.0.0.1, or a network assigned IP address), then you will not be able to answer the questions.
+If you are accessing this app via the homepage you will not be able to answer any questions, but if you access the app via the `/answer` endpoint, you should be able to answer questions individually.
 
 Every connected user should see updates as questions get added, voted on, and answered.
