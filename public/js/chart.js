@@ -3,7 +3,7 @@
 // - Array.reduce
 const generateChartData = function() {
 
-  questions.sort((a, b) => {
+  questions.sort(function(a, b) {
     return b.score - a.score;
   })
 
@@ -11,18 +11,18 @@ const generateChartData = function() {
     return [];
   }
 
-  let now = Math.floor(new Date().getTime() / 1000);
+  var now = Math.floor(new Date().getTime() / 1000);
 
-  let avg = questions.reduce((a, b) => { 
+  var avg = questions.reduce(function(a, b) { 
     return { 
       score: (a.score + b.score) 
     }
   }, { score: 0 })
   .score / questions.length;
 
-  let len = questions.length
+  var len = questions.length
 
-  let data = [
+  var data = [
     {
       label: "Highest score",
       values: [ {time: now, y: questions[0].score} ],
@@ -48,7 +48,7 @@ const generateChartData = function() {
 // - generateChartData()
 const generateChartUpdate = function() {
 
-  let data = generateChartData();
+  var data = generateChartData();
 
   return [data[0].values[0], data[1].values[0], data[2].values[0]]
 
@@ -71,7 +71,7 @@ const generateChart = function() {
   // Simulate new data points to keep chart moving
   // If you have an active stream of data then you
   // don't need this
-  setInterval(() => {
+  setInterval(function() {
     if (questions.length) {
       chart.push(generateChartUpdate())
     }

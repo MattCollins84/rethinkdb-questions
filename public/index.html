@@ -48,17 +48,19 @@
           },
           computed: {
             sortedQuestions: function() {
-              let q = this.questions
-              return q.sort((a, b) => {
+              var q = this.questions
+              return q.sort(function(a, b) {
                 return b.score - a.score;
               });
             },
-            answerPage: () => location.pathname == "/answer"
+            answerPage: function() {
+              location.pathname == "/answer"
+            }
           },
           sockets:{
             new: function(q) {
               this.questions.push(q);
-              this.questions.sort((a, b) => {
+              this.questions.sort(function(a, b) {
                 return b.score - a.score;
               })
             },
@@ -67,12 +69,12 @@
           }
         })
 
-        app.getQuestions(questions => {
+        app.getQuestions(function(questions) {
           app.questions = questions;
         })
 
-        app.getIP(ip => {
-          $("span#ip").text(`(http://${ip}:3000)`);
+        app.getIP(function(ip) {
+          $("h4#ip").text(`${ip}`);
         })
 
       });
@@ -85,7 +87,8 @@
 
     <div class="container" id="app">
       <div class="header">
-        <h3 class="text-muted">Questions <span id="ip"></span><button v-on:click="showForm" id="ask" type="button" class="pull-right btn btn-info">Ask a question</button></h3>
+        <h3 class="text-muted">Realtime Q&amp;A <button v-on:click="showForm" id="ask" type="button" class="pull-right btn btn-info">Ask a question</button></h3>
+        <h4 id="ip">&nbsp;</h4>
         <hr>
         <form class="hidden" id="questionForm" v-on:submit="askQuestion">
           <div class="form-group">

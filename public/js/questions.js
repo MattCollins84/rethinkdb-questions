@@ -10,10 +10,10 @@ const askQuestion = function(e) {
   $("form#questionForm div.form-group").removeClass("has-error");
 
   // capture our form
-  let form = $("form#questionForm");
+  var form = $("form#questionForm");
 
   // capture our question
-  let question = form.serializeArray()[0].value;
+  var question = form.serializeArray()[0].value;
 
   // perform some validation if the form hasn't been completed
   if (!question) {
@@ -21,7 +21,7 @@ const askQuestion = function(e) {
   }
 
   // submit and reset the form
-  $.post("/question", { question: question }).complete(d => {
+  $.post("/question", { question: question }).complete(function(d) {
     $("form#questionForm").each(function(){
       this.reset();
     });
@@ -53,7 +53,7 @@ const doDownvote = function(id) {
 // No data is added to the DOM on callback
 const answerQuestion = function(id) {
   
-  let answer = $(`textarea[answer-id='${id}']`).val()
+  var answer = $(`textarea[answer-id='${id}']`).val()
   $.post(`/answer/${id}`, {answer: answer})
 
 }

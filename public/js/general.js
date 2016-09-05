@@ -10,12 +10,12 @@ const getQuestions = function(callback) {
   .complete(function(data) {
     
     // populate questions array
-    data.responseJSON.forEach(q => {
+    data.responseJSON.forEach(function(q) {
       questions.push(q);
     });
 
     // sort questions by score
-    questions.sort((a, b) => {
+    questions.sort(function(a, b) {
       return b.score - a.score;
     })
 
@@ -31,7 +31,7 @@ const getQuestions = function(callback) {
 const updateQuestion = function(q) {
 
   // find the index of the question in our array
-  let index = app.questions.findIndex((el, i, arr) => { 
+  var index = app.questions.findIndex(function(el, i, arr) { 
     return el.id == q.id 
   });
 
@@ -62,7 +62,7 @@ const updateQuestion = function(q) {
 const deleteQuestion = function(q) {
 
   // find the index of the question in our array
-  let index = app.questions.findIndex((el, i, arr) => { 
+  var index = app.questions.findIndex(function(el, i, arr) { 
     return el.id == q.id 
   });
 
@@ -78,7 +78,7 @@ const deleteQuestion = function(q) {
 const getIP = function(callback) {
   
   $.ajax("/ip")
-  .complete(data => {
+  .complete(function(data) {
     return callback(data.responseJSON.ip)
   });
 

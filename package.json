@@ -18,6 +18,7 @@
   "homepage": "https://github.com/MattCollins84/rethinkdb-questions#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cfenv": "^1.0.3",
     "express": "^4.14.0",
     "internal-ip": "^1.2.0",
     "rethinkdb": "^2.3.2",

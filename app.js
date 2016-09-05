@@ -5,6 +5,9 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const fs = require('fs');
+const cfenv = require('cfenv');
+const	appEnv = cfenv.getAppEnv()
 
 /*****
 	Bodyparser etc... for POST requests
@@ -16,7 +19,7 @@ const bpUrlencoded = bodyParser.urlencoded({ extended: true});
 /*****
 	Find IP info
 *****/
-const publicIP = require('internal-ip').v4();
+const publicIP = appEnv.url || require('internal-ip').v4() + ":3000";
 
 /*****
 	RethinkDB
@@ -24,21 +27,21 @@ const publicIP = require('internal-ip').v4();
 const r = require("rethinkdb");
 
 // Local connection Object
-const connection = {
-	db: "test"
-}
+// const connection = {
+// 	db: "test"
+// }
 
 // Compose connection Object
-// const connection = {
-//   host: "<hostname>",
-//   port: <port>,
-//   user: "<user>",
-//   password: "<password>",
-//   ssl: {
-//     ca: new Buffer(fs.readFileSync('./path/to/your/cert.ca', "utf8"))
-//   },
-//	 db: "<dbname>"
-// }
+const connection = {
+  host: "sl-eu-lon-2-portal.2.dblayer.com",
+  port: 15106,
+  user: "admin",
+  password: "OiupKl-_yd__b5jP1vdgcAFw0_rYIMaslr0byh3N7Dc",
+  ssl: {
+    ca: new Buffer(fs.readFileSync('./cert.ca', "utf8"))
+  },
+	 db: "nottsjs"
+}
 
 /*****
 	API endpoints
@@ -230,6 +233,6 @@ app.use(express.static(__dirname + '/public'));
 /*****
 	Listening on port 3000
 *****/
-http.listen(3000, () => {
-  console.log(`listening on ${publicIP}:3000`);
+http.listen(appEnv.port, appEnv.bind, () => {
+  console.log(`listening on ${appEnv.url || publicIP}`);
 });
