@@ -25,10 +25,6 @@ Once you have Node installed, `npm install` should get you the rest of the way.
 
 To start the app, `node app.js`, and you should be able to access it via http://localhost:3000
 
-### ES6 Compatibility
-
-The Javascript used by this app on the front-end utilises some ES6 functionality, so it is advised that you make sure you are using a current version of your browser of choice! For compatibility, [check here](http://kangax.github.io/compat-table/es6/).
-
 ## The App
 
 The app itself is designed to be used with an audience, and is very simple.
