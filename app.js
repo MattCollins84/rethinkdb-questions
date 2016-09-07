@@ -231,8 +231,9 @@ r.connect(connection, (err, conn) => {
 app.use(express.static(__dirname + '/public'));
 
 /*****
-	Listening on port 3000
+	Listening
 *****/
-http.listen(appEnv.port, appEnv.bind, () => {
+console.log(appEnv.bind)
+http.listen(appEnv.port, ( appEnv.bind == "localhost" ? null : appEnv.bind ), () => {
   console.log(`listening on ${appEnv.url || publicIP}`);
 });
