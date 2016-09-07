@@ -32,16 +32,16 @@ const r = require("rethinkdb");
 // }
 
 // Compose connection Object
-const connection = {
-  host: "sl-eu-lon-2-portal.2.dblayer.com",
-  port: 15106,
-  user: "admin",
-  password: "OiupKl-_yd__b5jP1vdgcAFw0_rYIMaslr0byh3N7Dc",
-  ssl: {
-    ca: new Buffer(fs.readFileSync('./cert.ca', "utf8"))
-  },
-	 db: "nottsjs"
-}
+// const connection = {
+//   host: "<host>",
+//   port: <port>,
+//   user: "<user>",
+//   password: "<password>",
+//   ssl: {
+//     ca: new Buffer(fs.readFileSync('/path/to/cert.ca', "utf8"))
+//   },
+// 	 db: "<db name>"
+// }
 
 /*****
 	API endpoints
