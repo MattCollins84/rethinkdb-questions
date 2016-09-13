@@ -23,7 +23,7 @@ You will also need [Node.js](http://www.nodejs.org) installed. I used `v4.4.5` s
 
 Once you have Node installed, `npm install` should get you the rest of the way.
 
-To start the app, `node app.js`, and you should be able to access it via http://localhost:3000
+To start the app, `node app.js`, and you should see the URL that you can use to access it displayed in the output. It will look something like `http://localhost:6001`.
 
 ## The App
 
