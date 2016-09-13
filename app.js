@@ -233,7 +233,6 @@ app.use(express.static(__dirname + '/public'));
 /*****
 	Listening
 *****/
-console.log(appEnv.bind)
 http.listen(appEnv.port, ( appEnv.bind == "localhost" ? null : appEnv.bind), () => {
   console.log(`listening on ${appEnv.url || publicIP}`);
 });

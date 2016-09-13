@@ -15,7 +15,9 @@ If you are using Homebrew on a Mac, you can use `brew install rethinkdb`.
 
 Once installed you can run RethinkDB by simply typing `rethinkdb` at your terminal.
 
-Once up and running you will need to create a `questions` table inside the default `test` database. You can do this via the RethinkDB admin UI which should be running at `http://localhost:8080`. Go via the `Table` menu option from the navigation at the top of the page.
+Alternatively, you could start a RethinkDB cluster on [Compose](http://www.compose.com/rethinkdb) for free, for 30 days.
+
+Once up and running you will need to create a `questions` table inside the default `test` database. You can do this via the RethinkDB admin UI which should be running at `http://localhost:8080` if running locally, or by accessing the Administration URL provided in the Compose RethinkDB dashboard. Add new tables via the `Tables` menu option from the navigation at the top of the page.
 
 ### Node.js
 
