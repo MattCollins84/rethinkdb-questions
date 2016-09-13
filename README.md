@@ -27,6 +27,10 @@ Once you have Node installed, `npm install` should get you the rest of the way.
 
 To start the app, `node app.js`, and you should see the URL that you can use to access it displayed in the output. It will look something like `http://localhost:6001`.
 
+### Configuration
+
+In `app.js` there is a variable `connection` that needs to be defined. There are two (commented out) examples - one for a local connection and one for using Compose. Uncomment the one you require, and if you're using Compose make sure to fill out the appropriate details from your RethinkDB dashboard.
+
 ## The App
 
 The app itself is designed to be used with an audience, and is very simple.
