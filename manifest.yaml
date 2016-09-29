@@ -1,6 +1,10 @@
 ---
+declared-services:
+  q-and-a-rethinkdb:
+    label: compose-for-rethinkdb
+    plan: Standard
 applications:
-- name: rethinkdb-questions
+- name: rethinkdb-questions-${random-word}
   path: .
   instances: 1
   disk_quota: 512M
@@ -9,3 +13,5 @@ applications:
   domain: mybluemix.net
   random-route: true
   command: node app.js
+  services:
+  - q-and-a-rethinkdb
