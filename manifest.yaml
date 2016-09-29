@@ -3,6 +3,9 @@ declared-services:
   q-and-a-rethinkdb:
     label: compose-for-rethinkdb
     plan: Standard
+  q-and-a-cloudant:
+    label: cloudantNoSQLDB
+    plan: Shared
 applications:
 - name: rethinkdb-questions-${random-word}
   path: .
@@ -15,3 +18,4 @@ applications:
   command: node app.js
   services:
   - q-and-a-rethinkdb
+  - q-and-a-cloudant
