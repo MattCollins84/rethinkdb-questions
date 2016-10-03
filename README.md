@@ -4,7 +4,15 @@ This is a sample app that shows off the power of changefeeds in [RethinkDB](http
 
 It is a simple question & answer app that will allow users to add questions, up and down vote questions, and allow an administrator to answer them.
 
-## Installation
+## Deploy to Bluemix
+You can deploy this app directly to [IBM Bluemix](http://www.bluemix.net) by clicking the button below.
+
+> _**Note:**_ *This will provision a RethinkDB instance within Bluemix which may incur costs, please see [here](https://console.ng.bluemix.net/catalog/services/compose-for-rethinkdb/) for more information*
+
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=<https://github.com/mattcollins84/rethinkdb-questions)
+
+
+## Deploy locally
 Ther are a few small steps required to get up and running.
 
 ### RethinkDB
@@ -15,9 +23,13 @@ If you are using Homebrew on a Mac, you can use `brew install rethinkdb`.
 
 Once installed you can run RethinkDB by simply typing `rethinkdb` at your terminal.
 
-Alternatively, you could start a RethinkDB cluster on [Compose](http://www.compose.com/rethinkdb) for free, for 30 days.
+Once up and running you will need to create a `questions` table inside the default `test` database. You can do this via the RethinkDB admin UI which should be running at `http://localhost:8080`. Add new tables via the `Tables` menu option from the navigation at the top of the page.
 
-Once up and running you will need to create a `questions` table inside the default `test` database. You can do this via the RethinkDB admin UI which should be running at `http://localhost:8080` if running locally, or by accessing the Administration URL provided in the Compose RethinkDB dashboard. Add new tables via the `Tables` menu option from the navigation at the top of the page.
+If you have a RethinkDB instance running elsewhere, you can provide these details via the `RETHINKDB_URL` environment variable:
+
+````
+export RETHINKDB_URL='rethinkdb://username:password@rethinkdb.hostname.com:12345'
+````
 
 ### Node.js
 
@@ -26,10 +38,6 @@ You will also need [Node.js](http://www.nodejs.org) installed. I used `v4.4.5` s
 Once you have Node installed, `npm install` should get you the rest of the way.
 
 To start the app, `node app.js`, and you should see the URL that you can use to access it displayed in the output. It will look something like `http://localhost:6001`.
-
-### Configuration
-
-In `app.js` there is a variable `connection` that needs to be defined. There are two (commented out) examples - one for a local connection and one for using Compose. Uncomment the one you require, and if you're using Compose make sure to fill out the appropriate details from your RethinkDB dashboard.
 
 ## The App
 
