@@ -26,33 +26,6 @@ const publicIP = appEnv.url || require('internal-ip').v4() + ":3000";
 	RethinkDB
 *****/
 const r = require("rethinkdb");
-//console.log(require('./lib/credentials.js'));
-// Local connection Object
-// const connection = {
-// 	db: "questions"
-// }
-
-// Compose connection Object
-// const connection = {
-//   host: "sl-eu-lon-2-portal.2.dblayer.com",
-//   port: 15106,
-//   user: "admin",
-//   password: "OiupKl-_yd__b5jP1vdgcAFw0_rYIMaslr0byh3N7Dc",
-//   ssl: {
-//     ca: new Buffer(fs.readFileSync('./cert.ca', "utf8"))
-//   },
-// 	 db: "nottsjs"
-// }
-
-// const connection = {
-//   host: "bluemix-sandbox-dal-9-portal.2.dblayer.com",
-//   port: 15408,
-//   user: "admin",
-//   password: "q3rlQtyhP5xZQMy3Qp6h_byv4zko98RYsbm0-P7HKi0",
-//   ssl: {
-//     ca: new Buffer("LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURoVENDQW0yZ0F3SUJBZ0lFVit1VStUQU5CZ2txaGtpRzl3MEJBUTBGQURCRU1VSXdRQVlEVlFRREREbDEKZDJVdVptRnpjMjVoWTJoMFFHUmxMbWxpYlM1amIyMHRNbVk1T0dNek9ESTVPRGM1TlRCbU1XUTRNR05oTkRJeApOVEJtWkRVMU4yTXdIaGNOTVRZd09USTRNVEF3TVRJNVdoY05Nell3T1RJNE1UQXdNREF3V2pCRU1VSXdRQVlEClZRUURERGwxZDJVdVptRnpjMjVoWTJoMFFHUmxMbWxpYlM1amIyMHRNbVk1T0dNek9ESTVPRGM1TlRCbU1XUTQKTUdOaE5ESXhOVEJtWkRVMU4yTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFDegpYQ0czSGIwUTNVSUJzelF1eHlnaXZsV20vTUY3RWZaY2NIZXl5bjVCZjVBNkpRclBxZ3JyaXJpbmtOOFo0STUrCm12OWZCMUh6T2hBZFJQQzZNSjlRVDU3bUhSRVh4SENtbHJCaXZjZFA0WS9nMVM4T0Z1MW5QbHlYM1ZnMjNITWsKRVlVNVBtaVdmVTlNaEt5bjZyNmpSRHJKcmt4d3IwWUxJbVhPTTN1UWs5aUFHY2JQY0cyU2VWYW1qNXhPcjFRbApUdHRpNWNtSWhCbUc3REF4WGdDQTNXZnIvVlRZU1d5S3lvUlpOZnVJUko0NWswM1l2TFdHVlo0TjBYS0d3dVpyCmcxMmFXckF2OU1COW5uM3Bqa0kxTTh6bmZhMzMwazRnMHhqVFZ4Z2orNVJZUjZhY0V2cWVwK092TUpVSHY5M1QKUFpHek5vREFRRkRSb0VqMEdjakxBZ01CQUFHamZ6QjlNQjBHQTFVZERnUVdCQlJNWDZWYm81SFZMN2JONHp0dwpkTHd6V3lMWjJqQU9CZ05WSFE4QkFmOEVCQU1DQWdRd0hRWURWUjBsQkJZd0ZBWUlLd1lCQlFVSEF3RUdDQ3NHCkFRVUZCd01DTUF3R0ExVWRFd1FGTUFNQkFmOHdId1lEVlIwakJCZ3dGb0FVVEYrbFc2T1IxUysyemVNN2NIUzgKTTFzaTJkb3dEUVlKS29aSWh2Y05BUUVOQlFBRGdnRUJBRmZrYmF1WXBrQnplcDlCbWY3SFVEZFFDc2FQampOWApKWW01T3hkdWdUNGlqU0JSbkNDeW9VMWJWK2FMdm5WczBqSXJVUGlHU1A0K21FQjYwS2xJaTRBZUQvWXVJbUZ6Ck9TT29oejg4SUxoMmRWZHBORkVpcERDOVhuZ0w0QlUrNWZEOE1zQVdTaC9sd1F0ZWRzcjNZZjlIZkk3RW50bjEKd1FXTzgzaG1xSXVTbHBaclNPUnl6Y0YzbVZPR2xkZklYcEpQcXZPUXdiMVVDM05Tc0tVeGExVFFENDcvZDNISQpwd2VzaG15ZFpMdzFuaDNtU0szMHdLYmFlQTJqbklZcUhCL3lGcGUrTUFIMDBxZGFUYXRqd3FKRks2TVpuTjJ0CjJmTDdiWlQ4OGxmeGprcHRGdlNiRjNEcjh4SWxrYjRuYnNNekVLNjZORDVZSVBaU0wwZWpOSVk9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K", "base64").toString("utf-8")
-//   }
-// }
 
 const connection = require('./lib/credentials.js');
 
