@@ -9,7 +9,7 @@ You can deploy this app directly to [IBM Bluemix](http://www.bluemix.net) by cli
 
 > _**Note:**_ *This will provision a RethinkDB instance within Bluemix which may incur costs, please see [here](https://console.ng.bluemix.net/catalog/services/compose-for-rethinkdb/) for more information*
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=<https://github.com/mattcollins84/rethinkdb-questions)
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/mattcollins84/rethinkdb-questions)
 
 
 ## Deploy locally
